@@ -22,6 +22,7 @@ In the Dockerfile there are the info needed to package the executable .jar file 
 
 Note that the -i ("- interactive") parameter in run it's needed it keeps STDIN open even if not attached. 
 The -v datavolume:/database maps a docker volume named datavolume to the /database directory within the container, and it is used to get persistent storage.
+
 ```sh
 docker build -t davide/urlapi:1.0 .
 
@@ -33,10 +34,9 @@ When you run the docker image a cli will pop up.
 
 ![Menu](img/menu.jpg)
 
-You can press:
-
-  - 1 to insert a link and make it short
-  - 2 to get the original link from a short one
-  - 3 to exit
-  - 4 to print all entries in database
-  - 5 to print only the most clicked short link
+You can press: 
+  - (**1**) to insert a link and make it short
+  - (**2**) to get the original link from a short one
+  - (**3**) to exit
+  - (**4**) to print all entries in database
+  - (**5**) to print only the most clicked short link
