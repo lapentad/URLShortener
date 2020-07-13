@@ -1,12 +1,13 @@
 # URLShortner API
 This API is designed to:
 
-  - Short URL cration
+  - Short URL creation
   - Forwarding of short URL to original ones
   - Persistent storage in database
   - Can be run in Docker
   - Gathering statistics
 
+## Get Started
 ### Docker
 This API is very easy to install and deploy in a Docker container.
 
@@ -26,3 +27,14 @@ docker build -t davide/urlapi:1.0 .
 
 docker run -i -v datavolume:/database davide/urlapi:1.0
 ```
+
+### How to
+When you run the docker image a cli will pop up.
+![Menu](images/menu.jpg)
+
+You can press:
+	- 1 to insert a link and make it short
+	- 2 to get the original link from a short one
+	- 3 to exit
+	- 4 to print all entries in database
+	- 5 to print only the most clicked short link
