@@ -33,6 +33,7 @@ When you run the docker image a cli will pop up.
 ![Menu](img/menu.jpg)
 
 You can press:
+
 	- 1 to insert a link and make it short
 	- 2 to get the original link from a short one
 	- 3 to exit
