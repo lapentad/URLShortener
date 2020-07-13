@@ -30,7 +30,7 @@ docker run -i -v datavolume:/database davide/urlapi:1.0
 
 ### How to
 When you run the docker image a cli will pop up.
-![Menu](images/menu.jpg)
+![Menu](img/menu.jpg)
 
 You can press:
 	- 1 to insert a link and make it short
