@@ -30,12 +30,13 @@ docker run -i -v datavolume:/database davide/urlapi:1.0
 
 ### How to
 When you run the docker image a cli will pop up.
+
 ![Menu](img/menu.jpg)
 
 You can press:
 
-	- 1 to insert a link and make it short
-	- 2 to get the original link from a short one
-	- 3 to exit
-	- 4 to print all entries in database
-	- 5 to print only the most clicked short link
+  - 1 to insert a link and make it short
+  - 2 to get the original link from a short one
+  - 3 to exit
+  - 4 to print all entries in database
+  - 5 to print only the most clicked short link
