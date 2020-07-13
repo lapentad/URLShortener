@@ -23,5 +23,5 @@ Note the -i ("- interactive") parameter in run it's needed it keeps STDIN open e
 ```sh
 docker build -t davide/urlapi:1.0 .
 
-docker run -i -t davide/urlapi:1.0
+docker run -i davide/urlapi:1.0
 ```
