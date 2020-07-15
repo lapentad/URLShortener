@@ -1,0 +1,5 @@
+com\lapenta\main\Main.class
+com\lapenta\main\URLForm.class
+com\lapenta\database\DBhandler.class
+com\lapenta\main\WebController.class
+com\lapenta\url\UrlShortner.class
