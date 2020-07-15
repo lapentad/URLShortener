@@ -8,7 +8,7 @@
 		<version>2.2.2.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.davide</groupId>
+	<groupId>com.lapenta</groupId>
 	<artifactId>url-shortner-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>url-shortner-api</name>
