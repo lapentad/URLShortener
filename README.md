@@ -16,7 +16,7 @@ Clone the repository and change directory.
 ```sh
 git clone https://github.com/lapentad/URLShortener.git
 
-cd UrlShortner
+cd UrlShortener
 ```
 Then you need to build .jar with Maven.
 
