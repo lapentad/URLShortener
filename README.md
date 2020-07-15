@@ -18,7 +18,7 @@ git clone https://github.com/lapentad/URLShortener.git
 
 cd UrlShortner
 ```
-Then you need to build .jar with Maven, or use the one i already built in /target
+Then you need to build .jar with Maven.
 
 ```sh
 ./mvnw package
