@@ -1,4 +1,4 @@
-package com.lapenta.database;
+package com.lapenta.urlShortener.dao;
 
 import java.io.File;
 import java.sql.Connection;
@@ -9,13 +9,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DBhandler {
+public class SQLiteDaoImpl implements Dao {
 
 	private String path;
 	private String dbName;
 	private String tableName;
 
-	public DBhandler(String dName, String tName) {
+	public SQLiteDaoImpl(String dName, String tName) {
 		setDbName(dName);
 		setTableName(tName);
 		setPath("jdbc:sqlite:" + System.getProperty("user.dir") + "/database/");
@@ -27,37 +27,6 @@ public class DBhandler {
 			createNewDatabase();
 			createNewTable();
 			insert("1h3d9bM1p", "www.test.com/image.png");
-		}
-	}
-
-	public void createNewDatabase() {
-
-		String url = path + dbName;
-
-		try (Connection conn = DriverManager.getConnection(url)) {
-			if (conn != null) {
-				DatabaseMetaData meta = conn.getMetaData();
-				System.out.println("The driver name is " + meta.getDriverName());
-				System.out.println("A new database has been created.");
-			}
-
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-	}
-
-	public void createNewTable() {
-
-		String url = path + dbName;
-
-		// SQL statement for creating a new table
-		String sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (\n" + "	id integer PRIMARY KEY,\n"
-				+ "	shortUrl text,\n" + "	longUrl text NOT NULL,\n" + "	clicks integer NOT NULL\n"+ ");";
-
-		try (Connection conn = DriverManager.getConnection(url); Statement stmt = conn.createStatement()) {
-			stmt.execute(sql);
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 	}
 
@@ -74,19 +43,53 @@ public class DBhandler {
 		return conn;
 	}
 
-	public void insert(String shortUrl, String longUrl) {
-		String sql = "INSERT INTO " + tableName + "(shortUrl,longUrl,clicks) VALUES(?,?,1)";
+	@Override
+	public void createNewDatabase() {
 
-		try (Connection conn = this.connect();
-			PreparedStatement pstmt = conn.prepareStatement(sql)) {
-				pstmt.setString(1, shortUrl);
-				pstmt.setString(2, longUrl);
-				pstmt.executeUpdate();
+		String url = path + dbName;
+
+		try (Connection conn = DriverManager.getConnection(url)) {
+			if (conn != null) {
+				DatabaseMetaData meta = conn.getMetaData();
+				System.out.println("The driver name is " + meta.getDriverName());
+				System.out.println("A new database has been created.");
+			}
+
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 	}
 
+	@Override
+	public void createNewTable() {
+
+		String url = path + dbName;
+
+		// SQL statement for creating a new table
+		String sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (\n" + "	id integer PRIMARY KEY,\n"
+				+ "	shortUrl text,\n" + "	longUrl text NOT NULL,\n" + "	clicks integer NOT NULL\n" + ");";
+
+		try (Connection conn = DriverManager.getConnection(url); Statement stmt = conn.createStatement()) {
+			stmt.execute(sql);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	@Override
+	public void insert(String shortUrl, String longUrl) {
+		String sql = "INSERT INTO " + tableName + "(shortUrl,longUrl,clicks) VALUES(?,?,1)";
+
+		try (Connection conn = this.connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, shortUrl);
+			pstmt.setString(2, longUrl);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	@Override
 	public void selectAll() {
 		String sql = "SELECT id, shortUrl, longUrl , clicks FROM URLS";
 
@@ -96,15 +99,18 @@ public class DBhandler {
 
 			// loop through the result set
 			while (rs.next()) {
-				System.out.println(rs.getInt("id") + "\t" + rs.getString("shortUrl") + "\t" + rs.getString("longUrl") + "\t" + rs.getInt("clicks"));
+				System.out.println(rs.getInt("id") + "\t" + rs.getString("shortUrl") + "\t" + rs.getString("longUrl")
+						+ "\t" + rs.getInt("clicks"));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 	}
 
+	@Override
 	public void selectMostClicked() {
-		String sql = "SELECT id, shortUrl, longUrl , clicks FROM "+ tableName +" WHERE clicks = (SELECT MAX(clicks) FROM " + tableName + ")";
+		String sql = "SELECT id, shortUrl, longUrl , clicks FROM " + tableName
+				+ " WHERE clicks = (SELECT MAX(clicks) FROM " + tableName + ")";
 
 		try (Connection conn = this.connect();
 				Statement stmt = conn.createStatement();
@@ -112,15 +118,18 @@ public class DBhandler {
 
 			// loop through the result set
 			while (rs.next()) {
-				System.out.println(rs.getInt("id") + "\t" + rs.getString("shortUrl") + "\t" + rs.getString("longUrl") + "\t" + rs.getInt("clicks"));
+				System.out.println(rs.getInt("id") + "\t" + rs.getString("shortUrl") + "\t" + rs.getString("longUrl")
+						+ "\t" + rs.getInt("clicks"));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 	}
 
+	@Override
 	public String getMostClicked() {
-		String sql = "SELECT id, shortUrl, longUrl , clicks FROM "+ tableName +" WHERE clicks = (SELECT MAX(clicks) FROM " + tableName + ")";
+		String sql = "SELECT id, shortUrl, longUrl , clicks FROM " + tableName
+				+ " WHERE clicks = (SELECT MAX(clicks) FROM " + tableName + ")";
 		String mostClick = "";
 		try (Connection conn = this.connect();
 				Statement stmt = conn.createStatement();
@@ -128,8 +137,10 @@ public class DBhandler {
 
 			// loop through the result set
 			while (rs.next()) {
-				mostClick = mostClick + "<tr><td>"+ (rs.getInt("id") + "</td> <td>" + rs.getString("shortUrl") + "</td> <td>" + rs.getString("longUrl") + "</td> <td>" + rs.getInt("clicks"))+ "</td> </tr>";
-				//mostClick = mostClick + (rs.getInt("id") + "\t" + rs.getString("shortUrl") + "\t" + rs.getString("longUrl") + "\t" + rs.getInt("clicks")) + "<br>";
+				mostClick = mostClick + "<tr><td>" + (rs.getInt("id") + "</td> <td>" + rs.getString("shortUrl")
+						+ "</td> <td>" + rs.getString("longUrl") + "</td> <td>" + rs.getInt("clicks")) + "</td> </tr>";
+				// mostClick = mostClick + (rs.getInt("id") + "\t" + rs.getString("shortUrl") +
+				// "\t" + rs.getString("longUrl") + "\t" + rs.getInt("clicks")) + "<br>";
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -137,7 +148,7 @@ public class DBhandler {
 		return mostClick;
 	}
 
-
+	@Override
 	public String getAll() {
 		String sql = "SELECT id, shortUrl, longUrl , clicks FROM URLS";
 		String all = "";
@@ -147,8 +158,10 @@ public class DBhandler {
 
 			// loop through the result set
 			while (rs.next()) {
-				//all = all + (rs.getInt("id") + "\t" + rs.getString("shortUrl") + "\t" + rs.getString("longUrl") + "\t" + rs.getInt("clicks"))+ "<br>";
-				all = all + "<tr><td>"+ (rs.getInt("id") + "</td> <td>" + rs.getString("shortUrl") + "</td> <td>" + rs.getString("longUrl") + "</td> <td>" + rs.getInt("clicks"))+ "</td> </tr>";
+				// all = all + (rs.getInt("id") + "\t" + rs.getString("shortUrl") + "\t" +
+				// rs.getString("longUrl") + "\t" + rs.getInt("clicks"))+ "<br>";
+				all = all + "<tr><td>" + (rs.getInt("id") + "</td> <td>" + rs.getString("shortUrl") + "</td> <td>"
+						+ rs.getString("longUrl") + "</td> <td>" + rs.getInt("clicks")) + "</td> </tr>";
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -156,19 +169,18 @@ public class DBhandler {
 		return all;
 	}
 
-
+	@Override
 	public void updateClick(String shortUrl) {
-        String sql = "UPDATE "+ tableName +" SET clicks = clicks+1"
-                + " WHERE shortUrl LIKE " + "'"+shortUrl+"'";
+		String sql = "UPDATE " + tableName + " SET clicks = clicks+1" + " WHERE shortUrl LIKE " + "'" + shortUrl + "'";
 
-        try (Connection conn = this.connect();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        		pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+		try (Connection conn = this.connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
 
+	@Override
 	public String selectLongUrl(String shortUrlQuery) {
 		String sql = "SELECT longUrl FROM URLS WHERE shortUrl LIKE '" + shortUrlQuery + "'";
 		String longUrl = "";
@@ -187,6 +199,7 @@ public class DBhandler {
 		return longUrl;
 	}
 
+	@Override
 	public boolean checkShortUrl(String shortUrlQuery) {
 		String sql = "SELECT COUNT(*) FROM URLS WHERE shortUrl LIKE '%" + shortUrlQuery + "'";
 
@@ -206,12 +219,15 @@ public class DBhandler {
 
 		return found;
 	}
+
 	public void setDbName(String dbName) {
 		this.dbName = dbName;
 	}
+
 	public void setTableName(String tableName) {
 		this.tableName = tableName;
 	}
+
 	public void setPath(String path) {
 		this.path = path;
 	}

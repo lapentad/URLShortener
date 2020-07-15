@@ -1,19 +1,21 @@
-package com.lapenta.url;
+package com.lapenta.urlShortener;
 
 import java.util.Random;
 
-import com.lapenta.database.DBhandler;
+import com.lapenta.urlShortener.dao.SQLiteDaoImpl;
 
-public class UrlShortner {
 
-	DBhandler d = new DBhandler("test.db", "URLS");
+
+public class UrlShortenerController {
+
+	SQLiteDaoImpl d = new SQLiteDaoImpl("test.db", "URLS");
 
 	//private String domain; // A domain to put before the genereted key
 	private char myChars[]; // This array is used for character to number mapping
 	private Random myRand; // Random object used to generate random integers
 	private int keyLength; // the key length in URL defaults to 8
 
-	public UrlShortner() {
+	public UrlShortenerController() {
 		myRand = new Random();
 		keyLength = 8;
 		myChars = new char[62];

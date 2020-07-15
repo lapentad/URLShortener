@@ -1,4 +1,4 @@
-package com.lapenta.main;
+package com.lapenta.urlShortener.webapp;
 
 import java.io.IOException;
 import java.net.URI;
@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.lapenta.url.UrlShortner;
+import com.lapenta.urlShortener.UrlShortenerController;
 
 @Controller
 public class WebController implements WebMvcConfigurer {
-	UrlShortner u = new UrlShortner();
+	UrlShortenerController u = new UrlShortenerController();
 	private String shortUrl;
 
 	@Override
