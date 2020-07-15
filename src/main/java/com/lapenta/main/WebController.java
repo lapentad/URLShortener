@@ -36,7 +36,7 @@ public class WebController implements WebMvcConfigurer {
 	}
 
 	@PostMapping("/")
-	public @ResponseBody String checkPersonInfo(@Valid URLForm urlForm, BindingResult bindingResult) {
+	public @ResponseBody String checkURL(@Valid URLForm urlForm, BindingResult bindingResult) {
 
 		if (bindingResult.hasErrors()) {
 			return "Error in form";

@@ -18,7 +18,7 @@ git clone https://github.com/lapentad/URLShortner.git
 
 cd UrlShortner
 ```
-Then you need to build .jar with Maven
+Then you need to build .jar with Maven, or use the one i already built in /target
 
 ```sh
 ./mvnw package
@@ -37,4 +37,4 @@ docker run -p 80:80 -v datavolume:/database lapenta/urlapi
 
 Run addhosts.bat OR "127.0.0.1 www.short.com" to hosts file.
 
-Go towww.short.com to see endpoint
+Go to www.short.com to see endpoint
