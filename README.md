@@ -1,4 +1,4 @@
-# URLShortner API
+# URLShortener API
 This API is designed to:
 
   - Short URL creation
@@ -14,7 +14,7 @@ This API is very easy to install and deploy in a Docker container.
 Clone the repository and change directory.
 
 ```sh
-git clone https://github.com/lapentad/URLShortner.git
+git clone https://github.com/lapentad/URLShortener.git
 
 cd UrlShortner
 ```
