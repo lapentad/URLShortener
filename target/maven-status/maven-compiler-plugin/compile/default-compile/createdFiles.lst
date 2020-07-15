@@ -1,5 +1,6 @@
-com\lapenta\main\Main.class
-com\lapenta\main\URLForm.class
-com\lapenta\database\DBhandler.class
-com\lapenta\main\WebController.class
-com\lapenta\url\UrlShortner.class
+com\lapenta\urlShortener\UrlShortenerController.class
+com\lapenta\urlShortener\webapp\URLForm.class
+com\lapenta\urlShortener\dao\Dao.class
+com\lapenta\urlShortener\webapp\Main.class
+com\lapenta\urlShortener\dao\SQLiteDaoImpl.class
+com\lapenta\urlShortener\webapp\WebController.class

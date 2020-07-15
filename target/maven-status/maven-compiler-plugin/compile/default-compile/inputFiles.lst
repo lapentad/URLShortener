@@ -1,5 +1,6 @@
-C:\Users\Davide\Desktop\Git Project\NEW\URLShortner\src\main\java\com\lapenta\main\Main.java
-C:\Users\Davide\Desktop\Git Project\NEW\URLShortner\src\main\java\com\lapenta\main\URLForm.java
-C:\Users\Davide\Desktop\Git Project\NEW\URLShortner\src\main\java\com\lapenta\database\DBhandler.java
-C:\Users\Davide\Desktop\Git Project\NEW\URLShortner\src\main\java\com\lapenta\main\WebController.java
-C:\Users\Davide\Desktop\Git Project\NEW\URLShortner\src\main\java\com\lapenta\url\UrlShortner.java
+C:\Users\Davide\Desktop\Git Project\NEW\URLShortener\src\main\java\com\lapenta\urlShortener\dao\Dao.java
+C:\Users\Davide\Desktop\Git Project\NEW\URLShortener\src\main\java\com\lapenta\urlShortener\dao\SQLiteDaoImpl.java
+C:\Users\Davide\Desktop\Git Project\NEW\URLShortener\src\main\java\com\lapenta\urlShortener\UrlShortenerController.java
+C:\Users\Davide\Desktop\Git Project\NEW\URLShortener\src\main\java\com\lapenta\urlShortener\webapp\WebController.java
+C:\Users\Davide\Desktop\Git Project\NEW\URLShortener\src\main\java\com\lapenta\urlShortener\webapp\URLForm.java
+C:\Users\Davide\Desktop\Git Project\NEW\URLShortener\src\main\java\com\lapenta\urlShortener\webapp\Main.java
